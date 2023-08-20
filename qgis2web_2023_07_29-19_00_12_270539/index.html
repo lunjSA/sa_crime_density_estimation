@@ -1869,7 +1869,12 @@
                         <td>' + (feature.properties['Truck hijacking: last 10 years per 20,000 people'] !== null ? autolinker.link(feature.properties['Truck hijacking: last 10 years per 20,000 people'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
+                layer.on('click', function(e) {                         
+                    // Convert properties to a JSON string                         
+                    var dataToSend = JSON.stringify(e.target.feature.properties);                         
+                    console.log("Posting data to parent:", dataToSend);                         
+                    window.top.postMessage(dataToSend, '*');                     
+                });
         }
 
         function style_Police_bounds_1_0(feature) {
